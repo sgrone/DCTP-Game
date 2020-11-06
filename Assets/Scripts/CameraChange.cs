@@ -28,11 +28,15 @@ public class CameraChange : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         if (CamMode == 0)
         {
+			Cursor.visible = false;
+			Cursor.lockState = CursorLockMode.Locked;
             ThirdCam.SetActive(true);
             FirstCam.SetActive(false);
         }
         if (CamMode == 1)
         {
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
             ThirdCam.SetActive(false);
             FirstCam.SetActive(true);
         }

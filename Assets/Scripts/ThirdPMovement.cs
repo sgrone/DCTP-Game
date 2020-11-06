@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class CameraMovement : MonoBehaviour
+public class ThirdPMovement : MonoBehaviour
 {
     //public float speedH = 2.0f;
     //public float speedV = 2.9f;
@@ -28,7 +28,7 @@ public class CameraMovement : MonoBehaviour
 		Debug.Log("cool");
 		cam = Camera.main;
     }
-
+	
     // Update is called once per frame
     void Update() {
 		// Mouse camera movement
