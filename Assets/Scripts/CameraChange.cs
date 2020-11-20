@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿/* This script will change the view of the player between first and third person
+   Change the view by pressing 'c' */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

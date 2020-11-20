@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/* This class controls movement while in first person view */
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Security.Cryptography;
@@ -13,10 +15,6 @@ public class FirstPMovement : MonoBehaviour
     private float yaw = 0.0f;
     private float pitch = 0.0f;
 
-    void Start() {
-		
-		
-	}
 	
 	// Update is called once per frame
     void Update() {
@@ -33,11 +31,10 @@ public class FirstPMovement : MonoBehaviour
 	void Move () {
 		float xInput = Input.GetAxis("Horizontal");
 		float zInput = Input.GetAxis("Vertical");
-		
-		//Vector3 dir = transform.forward * zInput + transform.right * xInput;
-		//transform.position += dir * moveSpeed * Time.deltaTime;
-		
 		transform.position += new Vector3(xInput * moveSpeed * Time.deltaTime, 0f, zInput * moveSpeed * Time.deltaTime);
+		
+		// TO_DO
+		// 'forward' direction should be the same direction that camera is facing
 	}
 }
 

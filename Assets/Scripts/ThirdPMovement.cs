@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿/* This script controls movement, rotation, and zooming
+   of camera while in third person */
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Security.Cryptography;
@@ -25,7 +28,6 @@ public class ThirdPMovement : MonoBehaviour
 
     // Start is called before the first frame update
     private void Awake() {
-		Debug.Log("cool");
 		cam = Camera.main;
     }
 	
@@ -37,19 +39,18 @@ public class ThirdPMovement : MonoBehaviour
 		Zoom();
     }
 	
+	// Movement with WASD keys
 	void Move () {
 		float xInput = Input.GetAxis("Horizontal");
 		float zInput = Input.GetAxis("Vertical");
-		
-		//Vector3 dir = transform.forward * zInput + transform.right * xInput;
-		//transform.position += dir * moveSpeed * Time.deltaTime;
-		
 		transform.position += new Vector3(xInput * moveSpeed * Time.deltaTime, 0f, zInput * moveSpeed * Time.deltaTime);
+		
+		//TO_DO Update this method so that 'forward' moves in the direction that camera is facing
 	}
 	
+	// Uses middle mouse scroll button to rotate screen
 	void Rotate() {
 		if (Input.GetMouseButtonDown(2)) {
-			Debug.Log("middle mouse click");
 			p1 = Input.mousePosition;
 		}
 		
@@ -64,11 +65,12 @@ public class ThirdPMovement : MonoBehaviour
 		}
 	}
 	
+	// Scroll wheel used to zoom in and out
 	void Zoom() {
 		float scrollInput = Input.GetAxis("Mouse ScrollWheel");
 		float dist = Vector3.Distance(transform.position, cam.transform.position);
 		
-		// TO DO - These should restrict how close/far you can zoom
+		// TO_DO - These should restrict how close/far you can zoom
 		// Currently broken, not sure why
 		//if (dist < minZoomDist && scrollInput > 0.0f)
 			//return;

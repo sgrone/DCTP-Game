@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿/* Controls spawning of objects in game when button in clicked
+   Objects is then handled by 'PlaceObject.cs */
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class ButtonHandler : MonoBehaviour
+public class SpawnBtnHandler : MonoBehaviour
 {
 	public GameObject blueprint;
 	

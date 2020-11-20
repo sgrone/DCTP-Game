@@ -7,8 +7,9 @@ public class PlaceObject : MonoBehaviour
 	
 	private Vector3 movePoint;
 	private float mZCoord;
-	public GameObject prefab;
+	public GameObject prefab; // This should be set within Unity to the objects that will be moved with cursor
 	
+	// Configurations set before first frame
 	void Start() {
 		Cursor.visible = false; // Cursor invisible while placing objects
 		mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;

@@ -1,26 +1,44 @@
-﻿using UnityEngine;
+﻿/* Line of sight code borrowed and adapted from Field of View tutorial by Sebastien Lague
+   at https://github.com/SebLague/Field-of-view
+   
+   This code create a field around an object that allows detection of targets within the sight
+   of the object. The object's sight can be blocked by obstacles
+   
+   Advised not to edit helper methods
+   
+   visibleTargets contains list of objects currently in line of sight*/
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class FieldOfView : MonoBehaviour {
 
+	// This is the value of the radius of the signal
 	public float viewRadius;
 	
+	// Angle of signal
+	// set 360 for csignal being sent in all directions
 	[Range(0,360)]
 	public float viewAngle;
 
+	// IMPORTANT
+	// GameObjects that act as obstalces need to have their layer changed to obstacle
+	// GameObjects that act as obstalces need to have their layer changed to target
 	public LayerMask targetMask;
 	public LayerMask obstacleMask;
 
 	public List<Transform> visibleTargets = new List<Transform>();
 
-	public float meshResolution;
+	public float meshResolution; // 10 is a good value
 	public int edgeResolveIterations;
-	public float edgeDstThreshold;
+	public float edgeDstThreshold; // 0.5
 
+	// 
 	public MeshFilter viewMeshFilter;
 	Mesh viewMesh;
 
+	// Runs when scene loads
 	void Start() {
 		viewMesh = new Mesh ();
 		viewMesh.name = "View Mesh";
@@ -29,7 +47,7 @@ public class FieldOfView : MonoBehaviour {
 		StartCoroutine ("FindTargetsWithDelay", .2f);
 	}
 
-
+	// Loop that constantly looks to see which objects are in line of sight
 	IEnumerator FindTargetsWithDelay(float delay) {
 		while (true) {
 			yield return new WaitForSeconds (delay);
@@ -37,10 +55,13 @@ public class FieldOfView : MonoBehaviour {
 		}
 	}
 
+	// Updates after all functions have been called
 	void LateUpdate() {
 		DrawFieldOfView ();
 	}
-
+	
+	// Adds Transforms of targets that are in line of sight to global visibleTargets list
+	// Access visibleTargets.gameObject to access game object of targets in list
 	void FindVisibleTargets() {
 		visibleTargets.Clear ();
 		Collider[] targetsInViewRadius = Physics.OverlapSphere (transform.position, viewRadius, targetMask);
@@ -49,16 +70,22 @@ public class FieldOfView : MonoBehaviour {
 			Transform target = targetsInViewRadius[i].transform;
 			Vector3 dirToTarget = (target.position - transform.position).normalized;
 			if (Vector3.Angle (transform.forward, dirToTarget) < viewAngle / 2) {
-				float dstToTarget = Vector3.Distance (transform.position, target.position); // NICK here is the distance between the target and object
+				float dstToTarget = Vector3.Distance (transform.position, target.position); // NICK here is the current distance between the target and object
 				if (!Physics.Raycast (transform.position, dirToTarget, dstToTarget, obstacleMask)) {
 					visibleTargets.Add (target);
 				}
 			}
 		}
 	}
+	
+	/* TO_DO
+	void visibleTargetEffect() {
+		// Add some effect (glow, etc.) to targets to show that they are visible to objects Line of Sight
+	}
+	*/
 
 
-	// Draw field around an object that shows what they can currently see
+	// Draw field of view for an object that shows what they can currently see and is obstructed by obstalces
 	void DrawFieldOfView() {
 		int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
 		float stepAngleSize = viewAngle / stepCount;
@@ -107,6 +134,7 @@ public class FieldOfView : MonoBehaviour {
 		viewMesh.RecalculateNormals ();
 	}
 
+	// Helper method for DrawFieldOfView()
 	EdgeInfo FindEdge(ViewCastInfo minViewCast, ViewCastInfo maxViewCast) {
 		float minAngle = minViewCast.angle;
 		float maxAngle = maxViewCast.angle;
@@ -129,8 +157,19 @@ public class FieldOfView : MonoBehaviour {
 
 		return new EdgeInfo (minPoint, maxPoint);
 	}
+	
+	// Struct used for FindEdge
+	public struct EdgeInfo {
+		public Vector3 pointA;
+		public Vector3 pointB;
 
+		public EdgeInfo(Vector3 _pointA, Vector3 _pointB) {
+			pointA = _pointA;
+			pointB = _pointB;
+		}
+	}
 
+	// Helper method for DrawFieldOfView()
 	ViewCastInfo ViewCast(float globalAngle) {
 		Vector3 dir = DirFromAngle (globalAngle, true);
 		RaycastHit hit;
@@ -142,6 +181,7 @@ public class FieldOfView : MonoBehaviour {
 		}
 	}
 
+	// Helper method for DirFromAngle()
 	public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal) {
 		if (!angleIsGlobal) {
 			angleInDegrees += transform.eulerAngles.y;
@@ -149,6 +189,7 @@ public class FieldOfView : MonoBehaviour {
 		return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),0,Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
 	}
 
+	// Helper method for DirFromAngle()
 	public struct ViewCastInfo {
 		public bool hit;
 		public Vector3 point;
@@ -160,16 +201,6 @@ public class FieldOfView : MonoBehaviour {
 			point = _point;
 			dst = _dst;
 			angle = _angle;
-		}
-	}
-
-	public struct EdgeInfo {
-		public Vector3 pointA;
-		public Vector3 pointB;
-
-		public EdgeInfo(Vector3 _pointA, Vector3 _pointB) {
-			pointA = _pointA;
-			pointB = _pointB;
 		}
 	}
 
