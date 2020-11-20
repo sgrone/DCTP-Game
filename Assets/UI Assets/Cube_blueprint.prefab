@@ -20,6 +20,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5843913777230543943, guid: 6ff5d148128e7274790bd7e1033da323,
+        type: 3}
+      propertyPath: viewAngle
+      value: 360
+      objectReference: {fileID: 0}
     - target: {fileID: 7290660728713456949, guid: 6ff5d148128e7274790bd7e1033da323,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

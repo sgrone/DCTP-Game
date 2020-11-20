@@ -16,7 +16,7 @@ public class ThirdPMovement : MonoBehaviour
 	public float zoomSpeed;
 	public float minZoomDist;
 	public float maxZoomDist;
-	public float rotateSpeed;
+	public float rotateSpeed = 0.1f;
 	
 	Vector2 p1;
 	Vector2 p2;
@@ -31,11 +31,6 @@ public class ThirdPMovement : MonoBehaviour
 	
     // Update is called once per frame
     void Update() {
-		// Mouse camera movement
-        //yaw += speedH * Input.GetAxis("Mouse X");
-        //pitch -= speedV * Input.GetAxis("Mouse Y");
-        //transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
-		
 		// Actual movement
 		Move();
 		Rotate();
@@ -58,13 +53,14 @@ public class ThirdPMovement : MonoBehaviour
 			p1 = Input.mousePosition;
 		}
 		
-		if (Input.GetMouseButtonDown(2)) {
+		if (Input.GetMouseButton(2)) {
 			p2 = Input.mousePosition;
 			
-			float dx = (p2 - p1).x * rotateSpeed;
-			float dy = (p2 - p1).y * rotateSpeed;
+			float dx = (p2 - p1).x * rotateSpeed * Time.deltaTime;
+			float dy = (p2 - p1).y * rotateSpeed * Time.deltaTime;
 			
-			cam.transform.rotation *= Quaternion.Euler(new Vector3(0, dx, 0));
+			transform.rotation *= Quaternion.Euler(new Vector3(0, dx, 0));
+			
 		}
 	}
 	
