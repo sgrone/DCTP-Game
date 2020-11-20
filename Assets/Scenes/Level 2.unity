@@ -861,8 +861,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2178c340c28a2b4b86191ba6e1f1021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThirdCam: {fileID: 2142608235}
-  FirstCam: {fileID: 1938994779}
+  ThirdCam: {fileID: 1938994779}
+  FirstCam: {fileID: 2142608235}
   CamMode: 0
 --- !u!1 &987875673 stripped
 GameObject:
