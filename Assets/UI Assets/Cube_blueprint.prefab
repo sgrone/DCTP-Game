@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 7290660728713456950, guid: 6ff5d148128e7274790bd7e1033da323, type: 3}
+  turnSpeed: 100
 --- !u!1001 &6061093047781351713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23,7 +24,7 @@ PrefabInstance:
     - target: {fileID: -5843913777230543943, guid: 6ff5d148128e7274790bd7e1033da323,
         type: 3}
       propertyPath: viewAngle
-      value: 360
+      value: 95
       objectReference: {fileID: 0}
     - target: {fileID: 7290660728713456949, guid: 6ff5d148128e7274790bd7e1033da323,
         type: 3}

@@ -9,6 +9,7 @@ public class CameraChange : MonoBehaviour
 {
     public GameObject ThirdCam;
     public GameObject FirstCam;
+    public GameObject menu;
     public int CamMode;
 
     // Update is called once per frame
@@ -33,6 +34,7 @@ public class CameraChange : MonoBehaviour
         {
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
+            menu.SetActive(false);
             ThirdCam.SetActive(true);
             FirstCam.SetActive(false);
         }
@@ -40,6 +42,7 @@ public class CameraChange : MonoBehaviour
         {
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.None;
+            menu.SetActive(true);
             ThirdCam.SetActive(false);
             FirstCam.SetActive(true);
         }
