@@ -8,10 +8,8 @@ public class Delete : MonoBehaviour
     
     public void DeleteObj(string tag)
     {
-            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag(tag);
-        foreach (GameObject target in gameObjects)
-        {
-            GameObject.Destroy(target);
-        }
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag(tag);
+        int size = gameObjects.Length-1;
+        GameObject.Destroy(gameObjects[size]);
     }
 }

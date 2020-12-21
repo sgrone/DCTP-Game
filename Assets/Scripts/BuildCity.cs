@@ -16,11 +16,21 @@ public class BuildCity : MonoBehaviour
     public int mapWidth = 20; //Width the building will be places on
     public int mapHeight = 20;//depth the building will be places on
     public float buildingFootPrint = 5; //distance between building
+    public int index;
+    float seed;
 
     // Start is called before the first frame update
     void Start()
     {
-        float seed = Random.Range(0, 100); //making a seed for random PerlinNoise offset
+
+        if (index > 30)
+        {
+           seed = Random.Range(0, 100); //making a seed for random PerlinNoise offset
+        }
+        else
+        {
+            seed = index; //making a seed for random PerlinNoise offset
+        }
         for (int i = 0; i < mapHeight; i++)
         {
             for(int j = 0; j< mapWidth; j++)
