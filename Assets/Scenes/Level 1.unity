@@ -1293,7 +1293,7 @@ PrefabInstance:
         type: 3}
       propertyPath: menu
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1320560361}
     - target: {fileID: 5864867583641969247, guid: c61165ef19fefc7409cc2b2e592ca655,
         type: 3}
       propertyPath: fovMax
